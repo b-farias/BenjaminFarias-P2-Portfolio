@@ -1,7 +1,23 @@
 ---
-title: "About me"
+title: "About Me"
 ---
 
-Add some text and a figure describing myself.
+# Benjamin Farias
+![Trip to Colorado, including a visit to the CU Boulder campus in January 2023](/imgs/IMG_4388.jpeg){width=30%}
 
-For details, see the exercise instructions. 
+### Education
+I graduated from The University of Texas at Austin in May 2023 where I earned my BBA in Management Information Systems. I additionally completed a certificate in Applied Statistical Modeling. My certificate prompted me to continue my education in the UTSA MSDA program.
+
+### Experience
+
+I am currently a Technology Risk Staff at EY, where I have gained experience in ITGC and ITAC evaluation for banks and insurance companies. My work in the technology risk practice has exposed me to a large amount of technology systems critical to the operations of financial institutions. 
+Prior to joining EY, I served as an AmeriCorps member at the San Antonio Food Bank. I served on the data specialist's team and performed data processing and cleaning for food distributions in San Antonio and the surrounding area. I additionally used data from these distributions to create Tableau visualizations demonstrating the need for food in the area.
+As a student I worked in UT's Institutional Reporting, Research, Information and Surveys department. 
+
+### Personal
+
+In my free time, I enjoy traveling, attending Spurs games, and reading. Lately, I have enjoyed reading John Green's The Anthropocene Reviewed.
+
+### Resource
+
+The Map the Meal Gap by Feeding America provides interesting information about the state of food insecurity across America and some of the factors that impact food insecurity. View the data at <https://map.feedingamerica.org>.

@@ -1,10 +1,10 @@
 ---
-title: "My website and data analysis portfolio"
+title: "Benjamin Farias' Data Analysis Portfolio"
 ---
 
-# Hello
+# UTSA MSDA Practicum II
 
-### And hello again
+### Summer 2024
 
 Welcome to **my website** and _data analysis portfolio._ 
 
