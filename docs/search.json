@@ -44,91 +44,91 @@
   {
     "objectID": "starter-analysis-exercise/products/report/starter-analysis-report.html",
     "href": "starter-analysis-exercise/products/report/starter-analysis-report.html",
-    "title": "Manuscript/Report Template for a Data Analysis Project",
+    "title": "Predicting the Results of College Football Games",
     "section": "",
-    "text": "The structure below is one possible setup for a data analysis project (including the course project). For a manuscript, adjust as needed. You don’t need to have exactly these sections, but the content covering those sections should be addressed.\nThis uses MS Word as output format. See here for more information. You can switch to other formats, like html or pdf. See the Quarto documentation for other formats."
+    "text": "Using a combination of play-by-play stats and box scores, I hope to build a model that can predict the outcome of a college football game. As statistics can be skewed by teams playing against similar difficulty teams in their conferences, normalization and adjustments will be performed to more accurately predict the outcome of teams in out-of-conference games."
   },
   {
     "objectID": "starter-analysis-exercise/products/report/starter-analysis-report.html#general-background-information",
     "href": "starter-analysis-exercise/products/report/starter-analysis-report.html#general-background-information",
-    "title": "Manuscript/Report Template for a Data Analysis Project",
+    "title": "Predicting the Results of College Football Games",
     "section": "2.1 General Background Information",
-    "text": "2.1 General Background Information\nProvide enough background on your topic that others can understand the why and how of your analysis"
+    "text": "2.1 General Background Information\nThe college football season consists of 128 D1 FBS teams that play 12 games a season. The teams are split into multiple conferences. Teams will play 8-9 games against teams in the same conference with the remainder of games being played against non-conference teams. Additionally with the expansion of the College Football Playoffs, teams will play a more diverse set of teams in the post-season. This makes it useful to be able to compare teams despite not playing equal schedules."
   },
   {
     "objectID": "starter-analysis-exercise/products/report/starter-analysis-report.html#description-of-data-and-data-source",
     "href": "starter-analysis-exercise/products/report/starter-analysis-report.html#description-of-data-and-data-source",
-    "title": "Manuscript/Report Template for a Data Analysis Project",
+    "title": "Predicting the Results of College Football Games",
     "section": "2.2 Description of data and data source",
-    "text": "2.2 Description of data and data source\nDescribe what the data is, what it contains, where it is from, etc. Eventually this might be part of a methods section."
+    "text": "2.2 Description of data and data source\nThe data will come from [https://collegefootballdata.com] and will be imported using the CFBFastR library. The website contains game data by team and player as well as play-by-play data."
   },
   {
     "objectID": "starter-analysis-exercise/products/report/starter-analysis-report.html#questionshypotheses-to-be-addressed",
     "href": "starter-analysis-exercise/products/report/starter-analysis-report.html#questionshypotheses-to-be-addressed",
-    "title": "Manuscript/Report Template for a Data Analysis Project",
+    "title": "Predicting the Results of College Football Games",
     "section": "2.3 Questions/Hypotheses to be addressed",
-    "text": "2.3 Questions/Hypotheses to be addressed\nState the research questions you plan to answer with this analysis.\nTo cite other work (important everywhere, but likely happens first in introduction), make sure your references are in the bibtex file specified in the YAML header above (here dataanalysis_template_references.bib) and have the right bibtex key. Then you can include like this:\nExamples of reproducible research projects can for instance be found in (McKay, Ebell, Billings, et al., 2020; McKay, Ebell, Dale, Shen, & Handel, 2020)"
+    "text": "2.3 Questions/Hypotheses to be addressed\nHow a team’s historical data can be used to predict how teams will perform in the future; however, the data will be skewed by conferences as the teams at the top of each conference will appear to perform similarly despite not playing equal opponents.\n\nExamples of reproducible research projects can for instance be found in (McKay, Ebell, Billings, et al., 2020; McKay, Ebell, Dale, Shen, & Handel, 2020)"
   },
   {
     "objectID": "starter-analysis-exercise/products/report/starter-analysis-report.html#data-aquisition",
     "href": "starter-analysis-exercise/products/report/starter-analysis-report.html#data-aquisition",
-    "title": "Manuscript/Report Template for a Data Analysis Project",
+    "title": "Predicting the Results of College Football Games",
     "section": "3.1 Data aquisition",
     "text": "3.1 Data aquisition\nAs applicable, explain where and how you got the data. If you directly import the data from an online source, you can combine this section with the next."
   },
   {
     "objectID": "starter-analysis-exercise/products/report/starter-analysis-report.html#data-import-and-cleaning",
     "href": "starter-analysis-exercise/products/report/starter-analysis-report.html#data-import-and-cleaning",
-    "title": "Manuscript/Report Template for a Data Analysis Project",
+    "title": "Predicting the Results of College Football Games",
     "section": "3.2 Data import and cleaning",
     "text": "3.2 Data import and cleaning\nWrite code that reads in the file and cleans it so it’s ready for analysis. Since this will be fairly long code for most datasets, it might be a good idea to have it in one or several R scripts. If that is the case, explain here briefly what kind of cleaning/processing you do, and provide more details and well documented code somewhere (e.g. as supplement in a paper). All materials, including files that contain code, should be commented well so everyone can follow along."
   },
   {
     "objectID": "starter-analysis-exercise/products/report/starter-analysis-report.html#statistical-analysis",
     "href": "starter-analysis-exercise/products/report/starter-analysis-report.html#statistical-analysis",
-    "title": "Manuscript/Report Template for a Data Analysis Project",
+    "title": "Predicting the Results of College Football Games",
     "section": "3.3 Statistical analysis",
     "text": "3.3 Statistical analysis\nExplain anything related to your statistical analyses."
   },
   {
     "objectID": "starter-analysis-exercise/products/report/starter-analysis-report.html#exploratorydescriptive-analysis",
     "href": "starter-analysis-exercise/products/report/starter-analysis-report.html#exploratorydescriptive-analysis",
-    "title": "Manuscript/Report Template for a Data Analysis Project",
+    "title": "Predicting the Results of College Football Games",
     "section": "4.1 Exploratory/Descriptive analysis",
     "text": "4.1 Exploratory/Descriptive analysis\nUse a combination of text/tables/figures to explore and describe your data. Show the most important descriptive results here. Additional ones should go in the supplement. Even more can be in the R and Quarto files that are part of your project.\nTable 1 shows a summary of the data.\nNote the loading of the data providing a relative path using the ../../ notation. (Two dots means a folder up). You never want to specify an absolute path like C:\\ahandel\\myproject\\results\\ because if you share this with someone, it won’t work for them since they don’t have that path. You can also use the here R package to create paths. See examples of that below. I recommend the here package, but I’m showing the other approach here just in case you encounter it.\n\n\n\n\nTable 1: Data summary table.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nskim_type\nskim_variable\nn_missing\ncomplete_rate\nfactor.ordered\nfactor.n_unique\nfactor.top_counts\nnumeric.mean\nnumeric.sd\nnumeric.p0\nnumeric.p25\nnumeric.p50\nnumeric.p75\nnumeric.p100\nnumeric.hist\n\n\n\n\nfactor\nGender\n0\n1\nFALSE\n3\nM: 4, F: 3, O: 2\nNA\nNA\nNA\nNA\nNA\nNA\nNA\nNA\n\n\nnumeric\nHeight\n0\n1\nNA\nNA\nNA\n165.66667\n15.97655\n133\n156\n166\n178\n183\n▂▁▃▃▇\n\n\nnumeric\nWeight\n0\n1\nNA\nNA\nNA\n70.11111\n21.24526\n45\n55\n70\n80\n110\n▇▂▃▂▂"
   },
   {
     "objectID": "starter-analysis-exercise/products/report/starter-analysis-report.html#basic-statistical-analysis",
     "href": "starter-analysis-exercise/products/report/starter-analysis-report.html#basic-statistical-analysis",
-    "title": "Manuscript/Report Template for a Data Analysis Project",
+    "title": "Predicting the Results of College Football Games",
     "section": "4.2 Basic statistical analysis",
     "text": "4.2 Basic statistical analysis\nTo get some further insight into your data, if reasonable you could compute simple statistics (e.g. simple models with 1 predictor) to look for associations between your outcome(s) and each individual predictor variable. Though note that unless you pre-specified the outcome and main exposure, any “p&lt;0.05 means statistical significance” interpretation is not valid.\nFigure 1 shows a scatterplot figure produced by one of the R scripts.\n\n\n\n\n\nFigure 1: Height and weight stratified by gender."
   },
   {
     "objectID": "starter-analysis-exercise/products/report/starter-analysis-report.html#full-analysis",
     "href": "starter-analysis-exercise/products/report/starter-analysis-report.html#full-analysis",
-    "title": "Manuscript/Report Template for a Data Analysis Project",
+    "title": "Predicting the Results of College Football Games",
     "section": "4.3 Full analysis",
     "text": "4.3 Full analysis\nUse one or several suitable statistical/machine learning methods to analyze your data and to produce meaningful figures, tables, etc. This might again be code that is best placed in one or several separate R scripts that need to be well documented. You want the code to produce figures and data ready for display as tables, and save those. Then you load them here.\nExample Table 2 shows a summary of a linear model fit.\n\n\n\n\nTable 2: Linear model fit table.\n\n\nterm\nestimate\nstd.error\nstatistic\np.value\n\n\n\n\n(Intercept)\n149.2726967\n23.3823360\n6.3839942\n0.0013962\n\n\nWeight\n0.2623972\n0.3512436\n0.7470519\n0.4886517\n\n\nGenderM\n-2.1244913\n15.5488953\n-0.1366329\n0.8966520\n\n\nGenderO\n-4.7644739\n19.0114155\n-0.2506112\n0.8120871"
   },
   {
     "objectID": "starter-analysis-exercise/products/report/starter-analysis-report.html#summary-and-interpretation",
     "href": "starter-analysis-exercise/products/report/starter-analysis-report.html#summary-and-interpretation",
-    "title": "Manuscript/Report Template for a Data Analysis Project",
+    "title": "Predicting the Results of College Football Games",
     "section": "5.1 Summary and Interpretation",
     "text": "5.1 Summary and Interpretation\nSummarize what you did, what you found and what it means."
   },
   {
     "objectID": "starter-analysis-exercise/products/report/starter-analysis-report.html#strengths-and-limitations",
     "href": "starter-analysis-exercise/products/report/starter-analysis-report.html#strengths-and-limitations",
-    "title": "Manuscript/Report Template for a Data Analysis Project",
+    "title": "Predicting the Results of College Football Games",
     "section": "5.2 Strengths and Limitations",
     "text": "5.2 Strengths and Limitations\nDiscuss what you perceive as strengths and limitations of your analysis."
   },
   {
     "objectID": "starter-analysis-exercise/products/report/starter-analysis-report.html#conclusions",
     "href": "starter-analysis-exercise/products/report/starter-analysis-report.html#conclusions",
-    "title": "Manuscript/Report Template for a Data Analysis Project",
+    "title": "Predicting the Results of College Football Games",
     "section": "5.3 Conclusions",
     "text": "5.3 Conclusions\nWhat are the main take-home messages?\nInclude citations in your Rmd file using bibtex, the list of references will automatically be placed at the end\nThis paper (Leek & Peng, 2015) discusses types of analyses.\nThese papers (McKay, Ebell, Billings, et al., 2020; McKay, Ebell, Dale, et al., 2020) are good examples of papers published using a fully reproducible setup similar to the one shown in this template.\nNote that this cited reference will show up at the end of the document, the reference formatting is determined by the CSL file specified in the YAML header. Many more style files for almost any journal are available. You also specify the location of your bibtex reference file in the YAML. You can call your reference file anything you like, I just used the generic word references.bib but giving it a more descriptive name is probably better."
   },
