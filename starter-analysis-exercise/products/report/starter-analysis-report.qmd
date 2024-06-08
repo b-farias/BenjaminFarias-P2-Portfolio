@@ -1,7 +1,7 @@
 ---
-title: "Manuscript/Report Template for a Data Analysis Project"
+title: "Predicting the Results of College Football Games"
 subtitle: ""
-author: Your Name
+author: Benjamin Farias
 date: today
 format:
   html:
@@ -12,12 +12,6 @@ bibliography: ../dataanalysis-template-references.bib
 csl: ../apa.csl
 ---
 
-The structure below is one possible setup for a data analysis project (including the course project). For a manuscript, adjust as needed. 
-You don't need to have exactly these sections, but the content covering those sections should be addressed.
-
-This uses MS Word as output format. [See here](https://quarto.org/docs/output-formats/ms-word.html) for more information. You can switch to other formats, like html or pdf. See [the Quarto documentation](https://quarto.org/) for other formats.
-
-
 ```{r, echo=FALSE, message=FALSE}
 # load a few R packages
 library(here)
@@ -27,7 +21,7 @@ library(knitr)
 
 
 # Summary/Abstract
-_Write a summary of your project._
+Using a combination of play-by-play stats and box scores, I hope to build a model that can predict the outcome of a college football game. As statistics can be skewed by teams playing against similar difficulty teams in their conferences, normalization and adjustments will be performed to more accurately predict the outcome of teams in out-of-conference games.
 
 
 {{< pagebreak >}}
@@ -36,15 +30,15 @@ _Write a summary of your project._
 # Introduction 
 
 ## General Background Information
-_Provide enough background on your topic that others can understand the why and how of your analysis_ 
+The college football season consists of 128 D1 FBS teams that play 12 games a season. The teams are split into multiple conferences. Teams will play 8-9 games against teams in the same conference with the remainder of games being played against non-conference teams. Additionally with the expansion of the College Football Playoffs, teams will play a more diverse set of teams in the post-season. This makes it useful to be able to compare teams despite not playing equal schedules.
 
 ## Description of data and data source
-_Describe what the data is, what it contains, where it is from, etc. Eventually this might be part of a methods section._
+The data will come from [https://collegefootballdata.com] and will be imported using the CFBFastR library. The website contains game data by team and player as well as play-by-play data.
 
 ## Questions/Hypotheses to be addressed
-_State the research questions you plan to answer with this analysis._
+How a team's historical data can be used to predict how teams will perform in the future; however, the data will be skewed by conferences as the teams at the top of each conference will appear to perform similarly despite not playing equal opponents.
 
-To cite other work (important everywhere, but likely happens first in introduction), make sure your references are in the bibtex file specified in the YAML header above (here `dataanalysis_template_references.bib`) and have the right bibtex key. Then you can include like this:
+<!-- To cite other work (important everywhere, but likely happens first in introduction), make sure your references are in the bibtex file specified in the YAML header above (here `dataanalysis_template_references.bib`) and have the right bibtex key. Then you can include like this: -->
 
 Examples of reproducible research projects can for instance be found in [@mckay2020; @mckay2020a]
 
