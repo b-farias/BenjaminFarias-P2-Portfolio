@@ -2,4 +2,111 @@
 title: "R Coding Exercise"
 ---
 
-Placeholder file for the future R coding exercise.
+```{r}
+# Loads the dslabs and tidyverse packages
+library(dslabs)
+library(tidyverse)
+
+# view gapminder help file
+help(gapminder)
+
+# view data structure
+str(gapminder)
+```
+```{r}
+# summary statistics for the data
+summary(gapminder)
+```
+
+```{r}
+# get the object type of the data
+class(gapminder)
+```
+
+```{r}
+# seperate out Africa data
+africadata <- gapminder %>% filter(continent == 'Africa')
+
+# view data structure
+str(africadata)
+
+# summary statistics for the data
+summary(africadata)
+```
+
+```{r}
+# keep only infant_mortality and life_expectancy columns and save as im_le
+im_le <- africadata %>% select(infant_mortality,life_expectancy)
+
+# view data structure
+str(im_le)
+
+# summary statistics for the data
+summary(im_le)
+```
+
+```{r}
+# keep only population and life_expectancy columns and save as p_le
+p_le <- africadata %>% select(population,life_expectancy)
+
+# view data structure
+str(p_le)
+
+# summary statistics for the data
+summary(p_le)
+```
+
+```{r}
+# create a scatter plot of life_expenctancy as a function of infant_mortality
+plot(im_le$infant_mortality, im_le$life_expectancy)
+```
+
+```{r}
+# create a scatter plot of life_expenctancy as a function of the natural log of population
+plot(log(p_le$population), p_le$life_expectancy)
+```
+Streaks are due to countries have multiple data points in the dataset (multiple years are reported for one country). Therefore, we are seeing the correlations over different time periods.
+
+```{r}
+# filter africadata to only include rows with no data for infant_mortality and then get the count of year values.
+africadata %>% filter(is.na(infant_mortality)) %>% count(year)
+```
+
+```{r}
+# seperate out data from 2000
+africadata2000 <- africadata %>% filter(year == 2000)
+
+# view data structure
+str(africadata2000)
+
+# summary statistics for the data
+summary(africadata2000)
+```
+
+```{r}
+# create a scatter plot of life_expenctancy as a function of infant_mortality
+plot(africadata2000$infant_mortality, africadata2000$life_expectancy)
+```
+
+```{r}
+# create a scatter plot of life_expenctancy as a function of the natural log of population
+plot(log(africadata2000$population), africadata2000$life_expectancy)
+```
+
+```{r}
+# linear regression of life_expectancy by infant_mortality
+fit1 <- lm(life_expectancy ~ infant_mortality, data=africadata2000)
+
+# linear regression of life_expectancy by population
+fit2 <- lm(life_expectancy ~ population, data=africadata2000)
+
+# summary of the infant_mortality model
+summary(fit1)
+```
+
+```{r}
+# summary of the population model
+summary(fit2)
+```
+
+Since the p-value of the infant_mortality model is less than .05, there is a statistically significant linear relationship between infant mortality and life expectancy This is not true for the population model, so there does not exist a strong linear relationship between population and life expectancy.
