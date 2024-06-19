@@ -205,3 +205,4 @@ summary(fit2)
 ```
 
 We see there is a significant effect caused the number of cases per 100K and a greater R\^2 value then our previous model.
+.
