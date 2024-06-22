@@ -27,6 +27,9 @@ for (i in 2:15) {
   games22 <- rbind(games22, gamestemp)
 }
 
+games22$total_yards <- as.numeric(games22$total_yards)
+games22$sacks <- as.numeric(games22$sacks)
+
 plot(games22$points, games22$total_yards)
 plot(games22$points, games22$turnovers)
 plot(games22$points, games22$rushing_attempts)
@@ -41,9 +44,9 @@ plot(games22$points, games22$tackles_for_loss)
 
 ############################
 #### First model fit
-# fit linear model using height as outcome, weight as predictor
+# fit linear model using points as outcome, total_yards and sacks as predictor
 
-lmfit1 <- lm(Height ~ Weight, results22)  
+lmfit1 <- lm(games22$points ~ games22$total_yards + games22$sacks)  
 
 # place results from fit into a data frame with the tidy function
 lmtable1 <- broom::tidy(lmfit1)
@@ -55,20 +58,3 @@ print(lmtable1)
 table_file1 = here("starter-analysis-exercise","results", "tables-files", "resulttable1.rds")
 saveRDS(lmtable1, file = table_file1)
 
-############################
-#### Second model fit
-# fit linear model using height as outcome, weight and gender as predictor
-
-lmfit2 <- lm(Height ~ Weight + Gender, mydata)  
-
-# place results from fit into a data frame with the tidy function
-lmtable2 <- broom::tidy(lmfit2)
-
-#look at fit results
-print(lmtable2)
-
-# save fit results table  
-table_file2 = here("starter-analysis-exercise","results", "tables-files", "resulttable2.rds")
-saveRDS(lmtable2, file = table_file2)
-
-  
