@@ -1,5 +1,12 @@
 [
   {
+    "objectID": "data-exercise/data-exercise.html",
+    "href": "data-exercise/data-exercise.html",
+    "title": "Data Exercise",
+    "section": "",
+    "text": "Analyzing the sentiment towards transportation in Reddit posts on r/SanAntonio\n\n# Initializing tidytext and dplyr libraries\nlibrary(tidytext)\n\nWarning: package 'tidytext' was built under R version 4.3.2\n\nlibrary(dplyr)\n\n\nAttaching package: 'dplyr'\n\n\nThe following objects are masked from 'package:stats':\n\n    filter, lag\n\n\nThe following objects are masked from 'package:base':\n\n    intersect, setdiff, setequal, union\n\nlibrary(tidyr)\n\nWarning: package 'tidyr' was built under R version 4.3.2\n\nlibrary(stopwords)\n\n# Using reddit data from another class.\nredditdata &lt;- read.csv(\"redditdata.csv\", comment.char=\"#\")\n\n# Rearranging data so that there is one work per line and it only contains posts related to transportation\ntidy_reddit &lt;- redditdata %&gt;% \n  filter(Transportation == 1) %&gt;% \n  unnest_tokens(word, Post)\n\n# Remove stop words\ntidy_reddit &lt;- tidy_reddit %&gt;% anti_join(get_stopwords())\n\nJoining with `by = join_by(word)`\n\n# Join with sentiment data and count the number of positive and negative words\ntransportationsentiment &lt;- tidy_reddit %&gt;%\n  inner_join(get_sentiments(\"bing\"), by = \"word\", relationship = \"many-to-many\") %&gt;%\n  count(ID, sentiment)\n\n# Get the sentiment from each post by subtracting negative count from positive count\ntransportationsentiment &lt;- transportationsentiment %&gt;% \n  pivot_wider(names_from = sentiment, values_from = n, values_fill = 0) %&gt;% \n  mutate(sentiment = positive - negative)\n\n# Get the average of the sentiment score from the posts\nmean(transportationsentiment$sentiment)\n\n[1] 0.4683544\n\n\nBased on this analysis, Reddit posts in r/SanAntonio tend to have neutral sentiment towards transportation."
+  },
+  {
     "objectID": "coding-exercise/coding-exercise.html",
     "href": "coding-exercise/coding-exercise.html",
     "title": "R Coding Exercise",

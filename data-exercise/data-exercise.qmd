@@ -1,0 +1,37 @@
+---
+title: "Data Exercise"
+---
+
+Analyzing the sentiment towards transportation in Reddit posts on r/SanAntonio
+```{r}
+# Initializing tidytext and dplyr libraries
+library(tidytext)
+library(dplyr)
+library(tidyr)
+library(stopwords)
+
+# Using reddit data from another class.
+redditdata <- read.csv("redditdata.csv", comment.char="#")
+
+# Rearranging data so that there is one work per line and it only contains posts related to transportation
+tidy_reddit <- redditdata %>% 
+  filter(Transportation == 1) %>% 
+  unnest_tokens(word, Post)
+
+# Remove stop words
+tidy_reddit <- tidy_reddit %>% anti_join(get_stopwords())
+
+# Join with sentiment data and count the number of positive and negative words
+transportationsentiment <- tidy_reddit %>%
+  inner_join(get_sentiments("bing"), by = "word", relationship = "many-to-many") %>%
+  count(ID, sentiment)
+
+# Get the sentiment from each post by subtracting negative count from positive count
+transportationsentiment <- transportationsentiment %>% 
+  pivot_wider(names_from = sentiment, values_from = n, values_fill = 0) %>% 
+  mutate(sentiment = positive - negative)
+
+# Get the average of the sentiment score from the posts
+mean(transportationsentiment$sentiment)
+```
+Based on this analysis, Reddit posts in r/SanAntonio tend to have neutral sentiment towards transportation.
