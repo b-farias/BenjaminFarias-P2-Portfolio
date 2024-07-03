@@ -1,0 +1,30 @@
+---
+title: "CDC Data Exercise"
+---
+
+```{r}
+# Initializing tidyverse
+library(tidyverse)
+
+# CDC data of the percent of the population over 60 covered by RSV vaccine. Estimate is the percent vaccinated in the week for the specified state.
+
+# Read data
+data <- read.csv("rsv.csv", comment.char="#")
+
+# Fiter to only include state level data and filter out NAs
+data <- data %>% filter(Geographic.Level == 'State') %>% filter(!(is.na(Estimate)))
+
+# Histogram of the estimates. Looks to be fairly normal
+hist(data$Estimate)
+# Mean of estimate
+mean(data$Estimate)
+# Standard deviation of estimate
+sd(data$Estimate)
+
+# Percentage of state
+data %>% group_by(Geographic.Name) %>% summarise(percent = 100 * n() / 7168)
+
+# Percentage of weeks
+data %>% group_by(Week_ending) %>% summarise(percent = 100 * n() / 7168)
+
+```
