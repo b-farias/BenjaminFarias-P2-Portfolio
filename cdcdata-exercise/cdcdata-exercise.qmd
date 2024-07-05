@@ -28,3 +28,74 @@ data %>% group_by(Geographic.Name) %>% summarise(percent = 100 * n() / 7168)
 data %>% group_by(Week_ending) %>% summarise(percent = 100 * n() / 7168)
 
 ```
+
+
+
+# THIS PART CONTRIBUTED TO BY ANTONIO FLORES
+
+Now we will generate some synthetic data using a tool called Synthpop
+
+From the [Synthpop website](https://synthpop.org.uk/about-synthpop.html#:~:text=Methodology,of%20synthesised%20variables%20are%20replaced.)
+
+"Most commonly variables are synthesised one-by-one using sequential regression modelling. This means that conditional distributions, from which synthetic values are drawn, are defined for each variable separately and they are conditioned on the original variables that are earlier in the synthesis sequence."
+
+```{r}
+library(synthpop) # Primary library needed for creating Synthetic Data
+library(dplyr)
+```
+
+```{r}
+subset = data %>% 
+  select(Geographic.Name, Estimate, Unweighted.Sample.Size, CI_Half_width_90pct, CI_Half_width_95pct) %>% 
+  mutate(Geographic.Name = as.factor(Geographic.Name))
+
+
+```
+
+
+```{r}
+codebook.syn(subset)
+```
+
+
+
+## Creating Synthetic Data
+
+```{r}
+new_seed = 2024 # Setting our seed at a random value
+synthetic_data = syn(subset, 
+                     seed = new_seed) #This will give us our synthetic dataset
+```
+
+
+
+```{r}
+#cleaning the synthetic dataset
+synth_data_clean = sdc(synthetic_data, subset, 
+                       label = "FAKE DATA",
+                       rm.replicated.uniques = TRUE) 
+```
+This is important! Sometimes, when we create "fake" synthetic data, we happen to recreate an actual observation in the original data set. So, in the name of privacy, we remove those observations. In this exercise, our synthetic data created 50 "fake" entries that actually had a match with real observations in the original data set. 
+
+```{r}
+newdata = synth_data_clean$syn
+
+# Histogram of the estimates. Looks to be fairly normal
+hist(newdata$Estimate)
+# Mean of estimate
+mean(newdata$Estimate)
+# Standard deviation of estimate
+sd(newdata$Estimate)
+
+# Percentage of state
+newdata %>% group_by(Geographic.Name) %>% summarise(percent = 100 * n() / 7168)
+
+```
+
+
+
+## Conclusions: 
+
+Firstly, I had to subset the columns into just one categorical because the Synthpop tool was taking an egregious amount of time to load (which makes sense). 
+
+Second, the data looks to have many of the same distributions for the specified variable (Estimate). The Histograms visually seem to be very similar, both means are at 23, and the standard deviations are fairly close (12.0, 11.9). 
