@@ -2,4 +2,68 @@
 title: "Presentation Exercise"
 ---
 
-Placeholder file for the future data/results presentation exercise.
+Recreating the plot from https://fivethirtyeight.com/features/where-fivethirtyeight-and-espns-2022-23-nba-forecasts-agree-and-disagree/
+```{r}
+# Calling the required libraries
+library(ggplot2)
+library(ggthemes)
+
+# Input the data which was manually compiled from the page.
+data <- read.csv("NBAProjections.csv", comment.char="#")
+
+# Create the plot with BPI on x axis and RAPTOR on y axis, color points orange with black outline. Add title. Add regression line. Add vertical line at x=0. Make it in the Fivethirthyeight theme.
+ggplot(data, aes(x = BPI, y = RAPTOR)) +
+  geom_point(color='orange',size=3, border='black') +
+  geom_point(shape = 1,size = 3,colour = "black") +
+  ggtitle("Who does RAPTOR like more than BPI? Uh ... the Raptors.") +
+  geom_smooth(method = "lm", se = FALSE, color='black', size=.5) +
+  geom_vline(xintercept = 0, color='black', size=.5)
+  theme_fivethirtyeight()
+
+```
+
+Used ChatGPT to generate this code. The prompt provided was "Write r code to create a table in the style of the website fivethirthyeight from a data frame called data with 3 columns called "Team", "BPI", and "RAPTOR"". The code was modified to make it work with the data that was read in earlier.
+
+```{r}
+# Call libraries
+library(gt)
+library(dplyr)
+
+# Create the table
+table <- data %>%
+  gt() %>%
+  # Apply FiveThirtyEight-like styling
+  tab_header(
+    title = md("**Team Performance Metrics**"),
+    subtitle = md("Source: Fivethrithyeight and ESPN")
+  ) %>%
+  cols_label(
+    Team = "Team",
+    BPI = "BPI",
+    RAPTOR = "RAPTOR"
+  ) %>%
+  tab_style(
+    style = cell_text(weight = "bold"),
+    locations = cells_column_labels(everything())
+  ) %>%
+  tab_options(
+    table.font.names = "Arial",
+    table.font.size = px(12),
+    heading.title.font.size = px(18),
+    heading.subtitle.font.size = px(14),
+    heading.align = "left",
+    table.border.top.style = "none",
+    table.border.bottom.color = "gray",
+    column_labels.border.bottom.color = "gray",
+    column_labels.border.bottom.width = px(2),
+    table_body.border.bottom.color = "gray",
+    table_body.border.bottom.width = px(1),
+    table_body.border.top.style = "none",
+    table.border.left.style = "none",
+    table.border.right.style = "none"
+  )
+
+# Print the table
+table
+```
+
