@@ -47,20 +47,23 @@ Examples of reproducible research projects can for instance be found in [@mckay2
 
 # Methods 
 
+The data was pulled from [https://collegefootballdata.com] using the CFBFastR library. Data used included weekly box scores that were combined to create averages for the week. The idea is the models will be more accurate later in the in the season as the averages become more reflective of the team's capabilities through the season. The data was then used to create multiple models using a train/test split with the later weeks being used to train, as improved accuracy later in the season is a goal. The models were then tested on the full season to determine which would perform the best across the season. The models were also separately tested only after the halfway point of the season.
+
 _Describe your methods. That should describe the data, the cleaning processes, and the analysis approaches. You might want to provide a shorter description here and all the details in the supplement._
-
-
-## Data aquisition
-_As applicable, explain where and how you got the data. If you directly import the data from an online source, you can combine this section with the next._
 
 
 ## Data import and cleaning
 _Write code that reads in the file and cleans it so it's ready for analysis. Since this will be fairly long code for most datasets, it might be a good idea to have it in one or several R scripts. If that is the case, explain here briefly what kind of cleaning/processing you do, and provide more details and well documented code somewhere (e.g. as supplement in a paper). All materials, including files that contain code, should be commented well so everyone can follow along._
 
+Data was pulled in for all weeks of the season with the CFBFastR package. Some values were pulled in as the wrong datatype, so key data was converted to the correct data type. The weekly box scores were then aggregated to include averages at each week in the season. For full code, refer to the statistical-analysis.R 
 
 ## Statistical analysis
 _Explain anything related to your statistical analyses._
+Multiple models were created to attempt to predict the outcome of games. A linear model was used to predict score and then win was given to the team with the higher predicted score. 
 
+A logistic model was also created to predict whether the home team would win the game. 
+
+As the goal is to predict the outcome of the game, models were evalulated based on getting the outcome correct, with more emphasis placed on predicting the correct outcome later in the season. For the full analysis, refer to the statistical-analysis.R file.
 
 {{< pagebreak >}}
 

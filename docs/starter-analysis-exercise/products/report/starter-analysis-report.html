@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Benjamin Farias">
-<meta name="dcterms.date" content="2024-07-06">
+<meta name="dcterms.date" content="2024-07-13">
 
 <title>Benjamin Farias Data Analysis Portfolio - Predicting the Results of College Football Games</title>
 <style>
@@ -177,7 +177,7 @@ div.csl-indent {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">July 6, 2024</p>
+      <p class="date">July 13, 2024</p>
     </div>
   </div>
   
@@ -217,18 +217,18 @@ div.csl-indent {
 </section>
 <section id="methods" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Methods</h1>
+<p>The data was pulled from [https://collegefootballdata.com] using the CFBFastR library. Data used included weekly box scores that were combined to create averages for the week. The idea is the models will be more accurate later in the in the season as the averages become more reflective of the team’s capabilities through the season. The data was then used to create multiple models using a train/test split with the later weeks being used to train, as improved accuracy later in the season is a goal. The models were then tested on the full season to determine which would perform the best across the season. The models were also separately tested only after the halfway point of the season.</p>
 <p><em>Describe your methods. That should describe the data, the cleaning processes, and the analysis approaches. You might want to provide a shorter description here and all the details in the supplement.</em></p>
-<section id="data-aquisition" class="level2" data-number="3.1">
-<h2 data-number="3.1" class="anchored" data-anchor-id="data-aquisition"><span class="header-section-number">3.1</span> Data aquisition</h2>
-<p><em>As applicable, explain where and how you got the data. If you directly import the data from an online source, you can combine this section with the next.</em></p>
-</section>
-<section id="data-import-and-cleaning" class="level2" data-number="3.2">
-<h2 data-number="3.2" class="anchored" data-anchor-id="data-import-and-cleaning"><span class="header-section-number">3.2</span> Data import and cleaning</h2>
+<section id="data-import-and-cleaning" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="data-import-and-cleaning"><span class="header-section-number">3.1</span> Data import and cleaning</h2>
 <p><em>Write code that reads in the file and cleans it so it’s ready for analysis. Since this will be fairly long code for most datasets, it might be a good idea to have it in one or several R scripts. If that is the case, explain here briefly what kind of cleaning/processing you do, and provide more details and well documented code somewhere (e.g.&nbsp;as supplement in a paper). All materials, including files that contain code, should be commented well so everyone can follow along.</em></p>
+<p>Data was pulled in for all weeks of the season with the CFBFastR package. Some values were pulled in as the wrong datatype, so key data was converted to the correct data type. The weekly box scores were then aggregated to include averages at each week in the season. For full code, refer to the statistical-analysis.R</p>
 </section>
-<section id="statistical-analysis" class="level2" data-number="3.3">
-<h2 data-number="3.3" class="anchored" data-anchor-id="statistical-analysis"><span class="header-section-number">3.3</span> Statistical analysis</h2>
-<p><em>Explain anything related to your statistical analyses.</em></p>
+<section id="statistical-analysis" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="statistical-analysis"><span class="header-section-number">3.2</span> Statistical analysis</h2>
+<p><em>Explain anything related to your statistical analyses.</em> Multiple models were created to attempt to predict the outcome of games. A linear model was used to predict score and then win was given to the team with the higher predicted score.</p>
+<p>A logistic model was also created to predict whether the home team would win the game.</p>
+<p>As the goal is to predict the outcome of the game, models were evalulated based on getting the outcome correct, with more emphasis placed on predicting the correct outcome later in the season. For the full analysis, refer to the statistical-analysis.R file.</p>
 <div style="page-break-after: always;"></div>
 </section>
 </section>
