@@ -2,4 +2,67 @@
 title: "Tidy Tuesday Exercise"
 ---
 
-Placeholder file for the future Tidy Tuesday exercise.
+```{r}
+# Call ggplot2 and tidymodels libraries
+library(ggplot2)
+library(tidymodels)
+library(tidyverse)
+library(timetk)
+library(smooth)
+```
+
+
+```{r}
+# Get ratings data from GitHub
+ratings <- readr::read_csv("https://raw.githubusercontent.com/kkakey/American_Idol/main/metadata/ratings.csv")
+```
+```{r}
+# Graph of the number of viewrs by week and season
+ggplot(ratings) + geom_line(aes(x=show_number, y=viewers_in_millions)) + facet_grid(. ~ season)
+```
+
+```{r}
+# Graph of the week rank by week and season
+ggplot(ratings) + geom_line(aes(x=show_number, y=weekrank)) + facet_grid(. ~ season)
+```
+
+
+```{r}
+# Graphy of viewers by week and season
+ggplot(ratings) + geom_line(aes(x=show_number, y=viewers_in_millions, group=season, color=season))
+```
+
+```{r}
+# Dropping NA viewship rows
+ratings <- ratings %>% drop_na(viewers_in_millions)
+
+# Tuning models on season and show number to predict viewership
+set.seed(192)
+mm <- mars(mode = "regression", num_terms = 5) %>%
+    fit(viewers_in_millions ~ season + show_number, data = ratings)
+
+sm <- svm_rbf(mode = "regression", rbf_sigma = 0.2) %>%
+    fit(viewers_in_millions ~ season + show_number, data = ratings)
+
+fm <- rand_forest(mode = "regression", trees = 2000) %>%
+  fit(viewers_in_millions ~ season + show_number, data = ratings)
+```
+
+```{r}
+# Creating test data
+r2 <- ratings %>% select(season, show_number)
+
+# Getting predictions
+mp <- predict(mm, r2)
+sp <- predict(sm, r2)
+fp <- predict(fm, r2)
+```
+
+```{r}
+# Calculating RMSE
+sqrt(mean((ratings$viewers_in_millions - mp$.pred)^2))
+sqrt(mean((ratings$viewers_in_millions - sp$.pred)^2))
+sqrt(mean((ratings$viewers_in_millions - fp$.pred)^2))
+```
+
+The questions I attempted to answer was how the season and show impact ratings. Based on exploratory analysis, it looked like viewship had peaked and was decreasing in future seasons. Based on the models created, the random forest performed the best with the lowest RMSE.
