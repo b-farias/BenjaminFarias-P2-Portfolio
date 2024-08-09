@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Benjamin Farias">
-<meta name="dcterms.date" content="2024-08-08">
+<meta name="dcterms.date" content="2024-08-09">
 
 <title>Benjamin Farias Data Analysis Portfolio - Predicting the Results of College Football Games</title>
 <style>
@@ -22,7 +22,26 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -158,7 +177,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 8, 2024</p>
+      <p class="date">August 9, 2024</p>
     </div>
   </div>
   
@@ -182,33 +201,30 @@ ul.task-list li input[type="checkbox"] {
 <h1 data-number="2"><span class="header-section-number">2</span> Introduction</h1>
 <section id="general-background-information" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="general-background-information"><span class="header-section-number">2.1</span> General Background Information</h2>
-<p>The college football season consists of 128 D1 FBS teams that play 12 games a season. The teams are split into multiple conferences. Teams will play 8-9 games against teams in the same conference with the remainder of games being played against non-conference teams. Additionally with the expansion of the College Football Playoffs, teams will play a more diverse set of teams in the post-season. This makes it useful to be able to compare teams despite not playing equal schedules.</p>
+<p>The college football season consists of 128 D1 FBS teams that play 12 games a season. The teams are split into multiple conferences. Teams will play 8-9 games against teams in the same conference with the remainder of games being played against non-conference teams. Additionally with the expansion of the College Football Playoffs, teams will play a more diverse set of teams in the post-season <span class="citation" data-cites="dinich24">(<a href="#ref-dinich24" role="doc-biblioref">Dinich, 2024</a>)</span>. This makes it useful to be able to compare teams despite not playing equal schedules.</p>
 </section>
 <section id="description-of-data-and-data-source" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="description-of-data-and-data-source"><span class="header-section-number">2.2</span> Description of data and data source</h2>
-<p>The data will come from [https://collegefootballdata.com] and will be imported using the CFBFastR library. The website contains game data by team and player as well as play-by-play data.</p>
+<p>The data is from https://collegefootballdata.com and is pulled and imported using the CFBFastR library. The website contains game data by team and player as well as play-by-play data and advanced statistics for all D1 football games.</p>
 </section>
 <section id="questionshypotheses-to-be-addressed" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="questionshypotheses-to-be-addressed"><span class="header-section-number">2.3</span> Questions/Hypotheses to be addressed</h2>
 <p>How a team’s historical data can be used to predict how teams will perform in the future; however, the data will be skewed by conferences as the teams at the top of each conference will appear to perform similarly despite not playing equal opponents.</p>
-<!-- To cite other work (important everywhere, but likely happens first in introduction), make sure your references are in the bibtex file specified in the YAML header above (here `dataanalysis_template_references.bib`) and have the right bibtex key. Then you can include like this: -->
-<!-- Examples of reproducible research projects can for instance be found in [@mckay2020; @mckay2020a]-->
 <div style="page-break-after: always;"></div>
 </section>
 </section>
 <section id="methods" class="level1" data-number="3">
 <h1 data-number="3"><span class="header-section-number">3</span> Methods</h1>
-<p>The data was pulled from [https://collegefootballdata.com] using the CFBFastR library. Data used included weekly box scores that were combined to create averages for the week. The idea is the models will be more accurate later in the in the season as the averages become more reflective of the team’s capabilities through the season. The data was then used to create multiple models using a train/test split with the later weeks being used to train, as improved accuracy later in the season is a goal. The models were then tested on the full season to determine which would perform the best across the season. The models were also separately tested only after the halfway point of the season.</p>
-<p><em>Describe your methods. That should describe the data, the cleaning processes, and the analysis approaches. You might want to provide a shorter description here and all the details in the supplement.</em></p>
+<p>The data was pulled from https://collegefootballdata.com using the CFBFastR library. Data used included weekly box scores that were combined to create averages for the week. The idea is the models will be more accurate later in the in the season as the averages become more reflective of the team’s capabilities through the season, and after teams have played more conference games. Early in the season, statistics will be skewed as many power teams play an easier out-of-conference schedule, while G5 teams are incentivized to play tougher teams that can provide a higher payout.</p>
+<p>The data was then used to create multiple models using a train/test split with the most recent season being used to test, and older seasons used to train. This was done due to the changing of the game where not all statistics may still be impactful as the game evolves. The models were tested on the full season to determine which would perform the best across the season. The models were also separately tested only after the halfway point of the most recent season.</p>
 <section id="data-import-and-cleaning" class="level2" data-number="3.1">
 <h2 data-number="3.1" class="anchored" data-anchor-id="data-import-and-cleaning"><span class="header-section-number">3.1</span> Data import and cleaning</h2>
-<p><em>Write code that reads in the file and cleans it so it’s ready for analysis. Since this will be fairly long code for most datasets, it might be a good idea to have it in one or several R scripts. If that is the case, explain here briefly what kind of cleaning/processing you do, and provide more details and well documented code somewhere (e.g.&nbsp;as supplement in a paper). All materials, including files that contain code, should be commented well so everyone can follow along.</em></p>
-<p>Data was pulled in for all weeks of the season with the CFBFastR package. Some values were pulled in as the wrong datatype, so key data was converted to the correct data type. The weekly box scores were then aggregated to include averages at each week in the season. To aid in logistic regression, the averages for before the week of the game were combined and subtracted resulting in differences. These differences were then used in the regression. For full code, refer to the statistical-analysis.R</p>
+<p>Data was pulled in for all weeks of the season with the CFBFastR package. Some values were pulled in as the wrong datatype, so key data was converted to the correct data type. The weekly box scores were then aggregated to include averages at each week in the season. To aid in logistic regression, the averages for before the week of the game were combined and subtracted resulting in differences. In these differences, the postive indicates the home team having the advantage, and the negative indicating the away team had the avantage. These differences were then used in the regression models. For full code, refer to the statistical-analysis.R</p>
 </section>
 <section id="statistical-analysis" class="level2" data-number="3.2">
 <h2 data-number="3.2" class="anchored" data-anchor-id="statistical-analysis"><span class="header-section-number">3.2</span> Statistical analysis</h2>
-<p><em>Explain anything related to your statistical analyses.</em> Multiple models were created to attempt to predict the outcome of games. A linear model was used to predict the score difference and then win was given to the team with the higher predicted score.</p>
-<p>A logistic model was also created to predict whether the home team would win the game.</p>
+<p>Multiple models were created to attempt to predict the outcome of games. A linear model was used to predict the score difference and then win was given to the team with the higher predicted score. As yards and sacks had the most linear relationship with points, they were the only variables included in the model.</p>
+<p>A logistic model was also created to predict whether the home team would win the game. This model included more variables that impacted the winner of the game.</p>
 <p>As the goal is to predict the outcome of the game, models were evalulated based on getting the outcome correct, with more emphasis placed on predicting the correct outcome later in the season. For the full analysis, refer to the statistical-analysis.R file.</p>
 <div style="page-break-after: always;"></div>
 
@@ -252,70 +268,105 @@ _To get some further insight into your data, if reasonable you could compute sim
 :::
 :::
 
-
-
-## Full analysis
-
-_Use one or several suitable statistical/machine learning methods to analyze your data and to produce meaningful figures, tables, etc. This might again be code that is best placed in one or several separate R scripts that need to be well documented. You want the code to produce figures and data ready for display as tables, and save those. Then you load them here._
-
-Example @tbl-resulttable2 shows a summary of a linear model fit.
-
-
-::: {#tbl-resulttable2 .cell tbl-cap='Linear model fit table.'}
-::: {.cell-output-display}
-|term        |    estimate|  std.error|  statistic|   p.value|
-|:-----------|-----------:|----------:|----------:|---------:|
-|(Intercept) | 149.2726967| 23.3823360|  6.3839942| 0.0013962|
-|Weight      |   0.2623972|  0.3512436|  0.7470519| 0.4886517|
-|GenderM     |  -2.1244913| 15.5488953| -0.1366329| 0.8966520|
-|GenderO     |  -4.7644739| 19.0114155| -0.2506112| 0.8120871|
-:::
-:::
-
-
-
-
-
-
-
-
-
-# Discussion
-
-## Summary and Interpretation
-_Summarize what you did, what you found and what it means._
-
-## Strengths and Limitations
-_Discuss what you perceive as strengths and limitations of your analysis._
-
-## Conclusions
-_What are the main take-home messages?_
-
-_Include citations in your Rmd file using bibtex, the list of references will automatically be placed at the end_
-
-This paper [@leek2015] discusses types of analyses. 
-
-These papers [@mckay2020; @mckay2020a] are good examples of papers published using a fully reproducible setup similar to the one shown in this template. 
-
-Note that this cited reference will show up at the end of the document, the reference formatting is determined by the CSL file specified in the YAML header. Many more style files for almost any journal [are available](https://www.zotero.org/styles). You also specify the location of your bibtex reference file in the YAML. You can call your reference file anything you like, I just used the generic word `references.bib` but giving it a more descriptive name is probably better.
-
-
-
-
-
-
-
-
-
-
-# References
 -->
+</section>
+<section id="full-analysis" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="full-analysis"><span class="header-section-number">3.3</span> Full analysis</h2>
+<p>Both models were used to predict whether the home team would win the game. <a href="#tbl-resulttable2">Table&nbsp;1</a> shows a summary of the linear model’s classification accuracy. The model correctly predicted the winner in 68% of games in the 2023 season. The logistic model performed similarly, as shown in <a href="#tbl-resulttable3">Table&nbsp;2</a>, with a 68% accuraracy rate, however the logistic model seemed to predict the home team to win more often, indicating that it gave a higher importance to home field advantage.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="tbl-resulttable2" class="anchored">
+<table class="table table-sm table-striped small">
+<caption>Table&nbsp;1: Linear model fit table.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">FALSE</th>
+<th style="text-align: right;">TRUE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">108</td>
+<td style="text-align: right;">63</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: right;">99</td>
+<td style="text-align: right;">239</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div id="tbl-resulttable3" class="anchored">
+<table class="table table-sm table-striped small">
+<caption>Table&nbsp;2: Logisitic model fit table.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">FALSE</th>
+<th style="text-align: right;">TRUE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">FALSE</td>
+<td style="text-align: right;">100</td>
+<td style="text-align: right;">55</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TRUE</td>
+<td style="text-align: right;">107</td>
+<td style="text-align: right;">247</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div style="page-break-after: always;"></div>
+</section>
+</section>
+<section id="discussion" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Discussion</h1>
+<section id="summary-and-interpretation" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="summary-and-interpretation"><span class="header-section-number">4.1</span> Summary and Interpretation</h2>
+<p>Both models were able to accurately predict the outcome of a game in 68% of games in the 2023 season. This is better than a coin flip and outperforms analysts who are correct in about 60% of their predictions <span class="citation" data-cites="newman20">(<a href="#ref-newman20" role="doc-biblioref">Newman, 2020</a>)</span>.</p>
+</section>
+<section id="strengths-and-limitations" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="strengths-and-limitations"><span class="header-section-number">4.2</span> Strengths and Limitations</h2>
+<p>Both models make use of basic box score statistics in predicting the outcome of the game. This makes the models more understandable as box score statistics are commonly referenced. However these statistics are limited in what can be measured in the game. Advanced statistics can account for some of this gap, but are more difficult to understand.</p>
+<p>The models could also be improved using some form of weighting to account for differences in schedule strength. One method to do this is with an ELO ranking that would indicate the comparative strength of teams based on historical results <span class="citation" data-cites="radjewski21">(<a href="#ref-radjewski21" role="doc-biblioref">Radjewski, 2021</a>)</span>.</p>
+</section>
+<section id="conclusions" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="conclusions"><span class="header-section-number">4.3</span> Conclusions</h2>
+<p>This project has been an excellent learning experience in exploring and preparing data for modeling, creating and evaluating models, and communicating results. The models I created performed better than I expected with the basic statistics they used for fitting; however, there is room for improvement to address some of the limitations previously mentioned.</p>
+<div style="page-break-after: always;"></div>
+</section>
+</section>
+<section id="references" class="level1" data-number="5">
+
+
 
 
 </section>
-</section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">5 References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="list">
+<div id="ref-dinich24" class="csl-entry" role="listitem">
+Dinich, H. (2024, May 27). How does college football playoff work? Rules, dates, more. <span>ESPN</span>. Retrieved from <a href="https://www.espn.com/college-football/story/_/id/40204947/how-does-college-football-playoff-work-rules-dates-format-selection-committee-voting">https://www.espn.com/college-football/story/_/id/40204947/how-does-college-football-playoff-work-rules-dates-format-selection-committee-voting</a>
+</div>
+<div id="ref-newman20" class="csl-entry" role="listitem">
+Newman, C. (2020). Whose <span>College</span> <span>Football</span> <span>Picks</span> <span>Are</span> the <span>Most</span> <span>Accurate</span>? <span>This</span> <span>New</span> <span>Site</span> <span>Can</span> <span>Tell</span> <span>You</span>. Retrieved from <a href="https://news.virginia.edu/content/whose-college-football-picks-are-most-accurate-new-site-can-tell-you">https://news.virginia.edu/content/whose-college-football-picks-are-most-accurate-new-site-can-tell-you</a>
+</div>
+<div id="ref-radjewski21" class="csl-entry" role="listitem">
+Radjewski, B. (2021). Talking <span>Tech</span>: <span>Calculating</span> <span>Elo</span> <span>Ratings</span> for <span>College</span> <span>Football</span>. Retrieved from <a href="https://blog.collegefootballdata.com/talking-tech-elo-ratings/">https://blog.collegefootballdata.com/talking-tech-elo-ratings/</a>
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
