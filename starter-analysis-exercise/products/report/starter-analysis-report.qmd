@@ -40,7 +40,7 @@ How a team's historical data can be used to predict how teams will perform in th
 
 <!-- To cite other work (important everywhere, but likely happens first in introduction), make sure your references are in the bibtex file specified in the YAML header above (here `dataanalysis_template_references.bib`) and have the right bibtex key. Then you can include like this: -->
 
-Examples of reproducible research projects can for instance be found in [@mckay2020; @mckay2020a]
+<!-- Examples of reproducible research projects can for instance be found in [@mckay2020; @mckay2020a]-->
 
 {{< pagebreak >}}
 
@@ -55,11 +55,11 @@ _Describe your methods. That should describe the data, the cleaning processes, a
 ## Data import and cleaning
 _Write code that reads in the file and cleans it so it's ready for analysis. Since this will be fairly long code for most datasets, it might be a good idea to have it in one or several R scripts. If that is the case, explain here briefly what kind of cleaning/processing you do, and provide more details and well documented code somewhere (e.g. as supplement in a paper). All materials, including files that contain code, should be commented well so everyone can follow along._
 
-Data was pulled in for all weeks of the season with the CFBFastR package. Some values were pulled in as the wrong datatype, so key data was converted to the correct data type. The weekly box scores were then aggregated to include averages at each week in the season. For full code, refer to the statistical-analysis.R 
+Data was pulled in for all weeks of the season with the CFBFastR package. Some values were pulled in as the wrong datatype, so key data was converted to the correct data type. The weekly box scores were then aggregated to include averages at each week in the season. To aid in logistic regression, the averages for before the week of the game were combined and subtracted resulting in differences. These differences were then used in the regression. For full code, refer to the statistical-analysis.R 
 
 ## Statistical analysis
 _Explain anything related to your statistical analyses._
-Multiple models were created to attempt to predict the outcome of games. A linear model was used to predict score and then win was given to the team with the higher predicted score. 
+Multiple models were created to attempt to predict the outcome of games. A linear model was used to predict the score difference and then win was given to the team with the higher predicted score. 
 
 A logistic model was also created to predict whether the home team would win the game. 
 
@@ -67,7 +67,7 @@ As the goal is to predict the outcome of the game, models were evalulated based 
 
 {{< pagebreak >}}
 
-
+<!--
 # Results
 
 ## Exploratory/Descriptive analysis
@@ -145,6 +145,6 @@ Note that this cited reference will show up at the end of the document, the refe
 {{< pagebreak >}}
 
 # References
-
+-->
 
 
